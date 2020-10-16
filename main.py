@@ -20,6 +20,7 @@ def amazon_api():
 
 @app.route('/api/croma')
 def croma_api():
+    print("Mujhe last kyu rakha :(")
     return 'Hello Charles'
 
 
