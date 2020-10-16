@@ -15,6 +15,7 @@ def flipkart_api():
 
 @app.route('/api/amazon')
 def amazon_api():
+    print("thanks for not putting me last :)")
     return 'Hello Chandrima'
 
 
