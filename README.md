@@ -1,7 +1,7 @@
 # Price_Comparision_App
 
 # Steps to correctly clone and configure this repository (one time only)
-1. git clone <http-link>
+1. git clone http-link
   (NOTE - First make sure you have pipenv installed, if not run -> pip3 install pipenv )
 2. In root directory of your app run in terminal -> pipenv shell (This sets up the appropiate environment and the appropiate interpreter)
   (NOTE - If Pycharm shows an option of " use pipenv interpreter " select it)
