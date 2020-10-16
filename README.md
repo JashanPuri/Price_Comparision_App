@@ -2,11 +2,11 @@
 
 # Steps to correctly clone and configure this repository (one time only)
 1. git clone http-link
-NOTE - First make sure you have pipenv installed, if not run -> pip3 install pipenv
-2. In root directory of your app run in terminal -> pipenv shell (This sets up the appropiate environment and the appropiate interpreter
-NOTE - If Pycharm shows an option of " use pipenv interpreter " select it
-3. Then run -> pipenv install (This installs all the dependencies/packages)
-NOTE - Pipfile contains the name of packages the project is currently using so "pipenv install" will install all the mentioned packages
+2. NOTE - First make sure you have pipenv installed, if not run -> pip3 install pipenv
+3. In root directory of your app run in terminal -> pipenv shell (This sets up the appropiate environment and the appropiate interpreter
+4. NOTE - If Pycharm shows an option of " use pipenv interpreter " select it
+5. Then run -> pipenv install (This installs all the dependencies/packages)
+6. NOTE - Pipfile contains the name of packages the project is currently using so "pipenv install" will install all the mentioned packages
   
 
 # Steps to push your code to the repository (after editing)
