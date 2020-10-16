@@ -10,6 +10,7 @@
   
 
 # Steps to push your code to the repository (after editing)
+In terminal
 1) git add .
 2) git commit -m "any message"
 3) git push
