@@ -19,30 +19,35 @@ def flipkart_api():
 def amazon_api():
     # print('chandu here')
     if request.method == 'GET':
-        uri = 'https://www.amazon.com'
+        uri = 'https://www.amazon.in'
         query = str(request.args['query'])
-        print(query)
+        # print(query)
         if " " in query:
             query = str(query).replace(" ", "+")
         else:
             pass
         search = '/s?k=' + query
         finaluri = uri + search
-        # print(finaluri)
+        print(finaluri)
         src = requests.get(finaluri).content
         soup = BeautifulSoup(src, 'html.parser')
         # print(soup.prettify())
-        links = soup.find_all('a', {'class': 'a-link-normal'})
+        links = soup.find_all('a', {'class': 'a-link-normal a-text-normal'})
+        # print(links)
         l = []
+        c = 0
         for i in links:
             d = {}
             item_url = uri + i.get('href')
+            # print(item_url)
             item_content = requests.get(item_url).content
             item_soup = BeautifulSoup(item_content, 'html.parser')
-            d['p'] = item_soup.find('span', {'class': 'a-size-large.product-title-word-break'}).text
-            d['price'] = item_soup.find('span',
-                                        {'class': 'a-size-medium.a-color-price.priceBlockBuyingPriceString'}).text
-            l.append(d)
+            if c == 0:
+                print(item_soup.prettify())
+                c += 1
+            # d['p'] = item_soup.find('span', {'class': 'a-size-large product-title-word-break', 'id': 'productTitle'}).text
+            # d['price'] = item_soup.find('span', {'class': 'a-size-medium a-color-price priceBlockBuyingPriceString'}).text
+            # l.append(d)
     return jsonify(l)
 
 
