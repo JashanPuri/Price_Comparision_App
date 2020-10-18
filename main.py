@@ -26,18 +26,18 @@ def croma_api():
     if request.method == 'GET':
         u = 'https://www.croma.com'
         text = str(request.args['text'])
-        print(text)
+        #print(text)
         if " " in text:
             text = str(text).replace(" ", "%20")
         else:
             pass
         search = '/search/?text=' + text
         finalurl = u + search
-        print(finalurl)
+        #print(finalurl)
         body = requests.get(finalurl).content
         scrap = BeautifulSoup(body, 'html.parser')
         print(scrap.prettify())
-        links = scrap.find_all('a', {'class': 'product-title'})
+        links = scrap.find_all('h3', {'class': 'product-title'})
         print(links)
         l = []
         for i in links:
