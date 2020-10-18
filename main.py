@@ -77,23 +77,23 @@ def amazon_api():
     return jsonify(l)
 
 
-@app.route('/api/croma', methods=['GET'])
-def croma_api():
+@app.route('/api/reliance', methods=['GET'])
+def reliance_api():
     if request.method == 'GET':
-        u = 'https://www.croma.com'
-        text = str(request.args['text'])
+        u = 'https://www.reliancedigital.in/'
+        text = str(request.args['query'])
         print(text)
         if " " in text:
             text = str(text).replace(" ", "%20")
         else:
             pass
-        search = '/search/?text=' + text
+        search = '/search/?q=' + text + ':relevance'
         finalurl = u + search
         print(finalurl)
         body = requests.get(finalurl).content
         soup = BeautifulSoup(body, 'html.parser')
-        print(soup.prettify())
-        links = soup.find_all('a', {'class': 'product-title'})
+        #print(soup.prettify())
+        links = soup.find_all('div', {'class': 'sp grid'})
         print(links)
         l = []
         for i in links:
@@ -101,8 +101,8 @@ def croma_api():
             p_url = u + i.get('href')
             p_content = requests.get(p_url).content
             p_soup = BeautifulSoup(p_content, 'html.parser')
-            d['p'] = p_soup.find('h1', {'class': 'pd-title'}).text
-            d['price'] = p_soup.find('span', {'class': 'amount'}).text
+            d['p'] = p_soup.find('div', {'class': 'pdp__title'}).text
+            d['price'] = p_soup.find('span', {'class': 'pdp__offerPrice'}).text
             l.append(d)
     return jsonify(l)
 
