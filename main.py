@@ -39,7 +39,7 @@ def amazon_api():
         if len(name_list) > 0 and len(price_list) > 0:
             j = 0
             for i in range(len(name_list) - len(price_list), len(name_list)):
-                d = {}
+                d = dict()
                 d['title'] = name_list[j].text
                 d['price'] = price_list[j].text
                 j += 1
