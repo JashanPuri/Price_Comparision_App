@@ -31,23 +31,20 @@ def amazon_api():
         print(finaluri)
         src = requests.get(finaluri).content
         soup = BeautifulSoup(src, 'html.parser')
-        # print(soup.prettify())
-        links = soup.find_all('a', {'class': 'a-link-normal a-text-normal'})
-        # print(links)
+        name_list = soup.find_all('span', {'class': 'a-size-medium a-color-base a-text-normal'})
+        price_list = soup.find_all('span', {'class': 'a-price-whole'})
         l = []
-        c = 0
-        for i in links:
-            d = {}
-            item_url = uri + i.get('href')
-            # print(item_url)
-            item_content = requests.get(item_url).content
-            item_soup = BeautifulSoup(item_content, 'html.parser')
-            if c == 0:
-                print(item_soup.prettify())
-                c += 1
-            # d['p'] = item_soup.find('span', {'class': 'a-size-large product-title-word-break', 'id': 'productTitle'}).text
-            # d['price'] = item_soup.find('span', {'class': 'a-size-medium a-color-price priceBlockBuyingPriceString'}).text
-            # l.append(d)
+        print(len(name_list))
+        print(len(price_list))
+        if len(name_list) > 0 and len(price_list) > 0:
+            j = 0
+            for i in range(len(name_list) - len(price_list), len(name_list)):
+                d = {}
+                d['title'] = name_list[j].text
+                d['price'] = price_list[j].text
+                j += 1
+                l.append(d)
+
     return jsonify(l)
 
 
