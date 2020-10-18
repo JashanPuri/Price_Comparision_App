@@ -98,17 +98,13 @@ def reliance_api():
         l = []
         for i in div_tags:
             d = {}
-            print(i)
             sib_soup = BeautifulSoup(str(i), 'html.parser')
-            # print(sib_soup.prettify())
-            print('link')
-            print(sib_soup.a['href'])
-            # p_url = u + i.get('href')
-            # p_content = requests.get(p_url).content
-            # p_soup = BeautifulSoup(p_content, 'html.parser')
-            # d['p'] = p_soup.find('div', {'class': 'pdp__title'}).text
-            # d['price'] = p_soup.find('span', {'class': 'pdp__offerPrice'}).text
-            # l.append(d)
+            p_url = u + sib_soup.a['href']
+            p_content = requests.get(p_url).content
+            p_soup = BeautifulSoup(p_content, 'html.parser')
+            d['p'] = p_soup.find('div', {'class': 'pdp__title'}).text
+            d['price'] = p_soup.find('span', {'class': 'pdp__offerPrice'}).text
+            l.append(d)
     return jsonify(l)
 
 
