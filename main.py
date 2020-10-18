@@ -12,7 +12,32 @@ def home():
 
 @app.route('/api/flipkart')
 def flipkart_api():
-    return 'Hello  i m Nishant'
+    if request.method == 'GET':
+        u = 'https://www.flipkart.com'
+        text = str(request.args['query'])
+        print(text)
+        if " " in text:
+            text = str(text).replace(" ", "%20")
+        else:
+            pass
+        search = '/search?q=' + text
+        finalurl = u + search
+        print(finalurl)
+        body = requests.get(finalurl).content
+        soup = BeautifulSoup(body, 'html.parser')
+        # print(soup.prettify())
+        links = soup.find_all('a', {'class': '_31qSD5'})
+        print(links)
+        l = []
+        for i in links:
+            d = {}
+            p_url = u + i.get('href')
+            p_content = requests.get(p_url).content
+            p_soup = BeautifulSoup(p_content, 'html.parser')
+            d['p'] = p_soup.find('span', {'class': '_35KyD6'}).text
+            d['price'] = p_soup.find('div', {'class': '_1vC4OE _3qQ9m1'}).text
+            l.append(d)
+    return jsonify(l)
 
 
 @app.route('/api/amazon', methods=['GET'])
@@ -36,6 +61,10 @@ def amazon_api():
         l = []
         print(len(name_list))
         print(len(price_list))
+        n = []
+        for i in name_list:
+            n.append(i.text)
+        print(n)
         if len(name_list) > 0 and len(price_list) > 0:
             j = 0
             for i in range(len(name_list) - len(price_list), len(name_list)):
