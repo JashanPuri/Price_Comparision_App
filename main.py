@@ -34,8 +34,9 @@ def flipkart_api():
             p_url = u + i.get('href')
             p_content = requests.get(p_url).content
             p_soup = BeautifulSoup(p_content, 'html.parser')
-            d['p'] = p_soup.find('span', {'class': '_35KyD6'}).text
+            d['title'] = p_soup.find('span', {'class': '_35KyD6'}).text
             d['price'] = p_soup.find('div', {'class': '_1vC4OE _3qQ9m1'}).text
+            d['link'] = p_url
             l.append(d)
     return jsonify(l)
 
