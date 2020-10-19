@@ -67,12 +67,10 @@ def amazon_api():
             n.append(i.text)
         print(n)
         if len(name_list) > 0 and len(price_list) > 0:
-            j = 0
-            for i in range(len(name_list) - len(price_list), len(name_list)):
+            for i in range(min((len(name_list), len(price_list)))):
                 d = dict()
-                d['title'] = name_list[j].text
-                d['price'] = price_list[j].text
-                j += 1
+                d['title'] = name_list[i].text
+                d['price'] = price_list[i].text
                 l.append(d)
 
     return jsonify(l)
