@@ -38,7 +38,7 @@ def flipkart_api():
             d['price'] = p_soup.find('div', {'class': '_1vC4OE _3qQ9m1'}).text
             d['link'] = p_url
             l.append(d)
-    return jsonify(l)
+    return jsonify({'flipkart': l})
 
 
 @app.route('/api/amazon', methods=['GET'])
@@ -73,7 +73,7 @@ def amazon_api():
                 d['price'] = price_list[i].text
                 l.append(d)
 
-    return jsonify(l)
+    return jsonify({'amazon': l})
 
 
 @app.route('/api/reliance', methods=['GET'])
@@ -101,10 +101,12 @@ def reliance_api():
             p_url = u + sib_soup.a['href']
             p_content = requests.get(p_url).content
             p_soup = BeautifulSoup(p_content, 'html.parser')
-            d['p'] = p_soup.find('div', {'class': 'pdp__title'}).text
+            d['title'] = p_soup.find('div', {'class': 'pdp__title'}).text
             d['price'] = p_soup.find('span', {'class': 'pdp__offerPrice'}).text
+            d['link'] = p_url
+
             l.append(d)
-    return jsonify(l)
+    return jsonify({'reliance': l})
 
 
 if __name__ == '__main__':
