@@ -36,6 +36,7 @@ def flipkart_api():
             p_soup = BeautifulSoup(p_content, 'html.parser')
             d['title'] = p_soup.find('span', {'class': '_35KyD6'}).text
             d['price'] = p_soup.find('div', {'class': '_1vC4OE _3qQ9m1'}).text
+
             d['link'] = p_url
             l.append(d)
     return jsonify({'flipkart': l})
@@ -43,9 +44,10 @@ def flipkart_api():
 
 @app.route('/api/amazon', methods=['GET'])
 def amazon_api():
-    # print('chandu here')
+    # print('chandrima here')
     if request.method == 'GET':
         uri = 'https://www.amazon.in'
+       # converting the request in query (item being searched for) to string and storing it
         query = str(request.args['query'])
         # print(query)
         if " " in query:
@@ -55,8 +57,8 @@ def amazon_api():
         search = '/s?k=' + query
         finaluri = uri + search
         print(finaluri)
-        src = requests.get(finaluri).content
-        soup = BeautifulSoup(src, 'html.parser')
+        src = requests.get(finaluri).content                 # getting search result page source code in unicode format
+        soup = BeautifulSoup(src, 'html.parser')             # using beautiful soup to parse source code
         name_list = soup.find_all('span', {'class': 'a-size-medium a-color-base a-text-normal'})
         price_list = soup.find_all('span', {'class': 'a-price-whole'})
         link_list = soup.find_all('a', {'class': 'a-link-normal a-text-normal'})
@@ -65,18 +67,19 @@ def amazon_api():
         print(len(price_list))
         print(len(link_list))
         n = []
-        for i in name_list:
+        for i in name_list:                                          # printing names of items on search page
             n.append(i.text)
         print(n)
-        if len(name_list) > 0 and len(price_list) > 0:
-            for i in range(min((len(name_list), len(price_list)))):
+        if len(name_list) > 0 and len(price_list) > 0:               # checking if no of search results > 0
+            # adding all items with name,price, link to dictionary
+            for i in range(min((len(name_list), len(price_list), len(link_list)))):
                 d = dict()
                 d['title'] = name_list[i].text
                 d['price'] = price_list[i].text
-                d['link'] = uri + link_list[i].get('href')
+                d['link'] = uri + link_list[i].get('href')          # adding url of amazon to item link
                 l.append(d)
 
-    return jsonify({'amazon': l})
+    return jsonify({'amazon': l})                                   # return list l in JavaScript Object Notation
 
 
 @app.route('/api/reliance', methods=['GET'])
@@ -97,7 +100,7 @@ def reliance_api():
         body = requests.get(finalurl).content                  #getting source code in unicode format
         soup = BeautifulSoup(body, 'html.parser')              #parsing the source code
         #print(soup.prettify())
-        div_tags = soup.find_all('div', {'class': 'sp grid'})  #finding akl div tags
+        div_tags = soup.find_all('div', {'class': 'sp grid'})  #finding all div tags
         print(div_tags)
         l = []
         for i in div_tags:
@@ -108,7 +111,7 @@ def reliance_api():
             p_soup = BeautifulSoup(p_content, 'html.parser')
             d['title'] = p_soup.find('div', {'class': 'pdp__title'}).text
             d['price'] = p_soup.find('span', {'class': 'pdp__offerPrice'}).text
-            # d['price'] = d['price'].replace("\u20b9", "")
+            d['price'] = d['price'].replace("\u20b9", "")
             d['link'] = p_url
 
             l.append(d)
