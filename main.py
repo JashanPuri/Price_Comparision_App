@@ -111,7 +111,6 @@ def reliance_api():
             p_soup = BeautifulSoup(p_content, 'html.parser')
             d['title'] = p_soup.find('div', {'class': 'pdp__title'}).text
             d['price'] = p_soup.find('span', {'class': 'pdp__offerPrice'}).text
-            d['price'] = d['price'].replace("\u20b9", "")
             d['link'] = p_url
 
             l.append(d)
