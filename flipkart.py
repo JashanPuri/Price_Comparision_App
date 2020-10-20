@@ -19,14 +19,17 @@ def FlipkartProducts(text):
     links = soup.find_all('a', {'class': '_31qSD5'})
     # print(links)
     l = []
+    count = 0
     for i in links:
         d = {}
-        p_url = u + i.get('href')  # finding and adding all the links to the products into the original link.
+        if count == 6:
+            break
+        count += 1
+        p_url = u + i.get('href')
         p_content = requests.get(p_url).content  # getting source code of the product page.
-        p_soup = BeautifulSoup(p_content, 'html.parser')  # parsing all data within div tag having class : sp grid.
+        p_soup = BeautifulSoup(p_content, 'html.parser')
         d['title'] = p_soup.find('span', {'class': '_35KyD6'}).text
         d['price'] = p_soup.find('div', {'class': '_1vC4OE _3qQ9m1'}).text
-
         d['link'] = p_url
         l.append(d)
     print(l)

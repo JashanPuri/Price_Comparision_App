@@ -26,7 +26,11 @@ def AmazonProducts(query):
         print(n)
         if len(name_list) > 0 and len(price_list) > 0:               # checking if no of search results > 0
             # adding all items with name,price, link to dictionary
+            count = 0
             for i in range(min((len(name_list), len(price_list), len(link_list)))):
+                if count == 6:
+                    break
+                count += 1
                 d = dict()
                 d['title'] = name_list[i].text
                 d['price'] = price_list[i].text

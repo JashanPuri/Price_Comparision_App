@@ -17,8 +17,12 @@ def RelianceProducts(text):
     div_tags = soup.find_all('div', {'class': 'sp grid'})  # finding all div tags
     print(div_tags)
     l = []
+    count = 0
     for i in div_tags:
         d = {}
+        if count == 6:
+            break
+        count += 1
         sib_soup = BeautifulSoup(str(i), 'html.parser')  # parsing all data within div tag having class : sp grid
         p_url = u + sib_soup.a['href']                   # finding and adding all the links to the products into the original link
         p_content = requests.get(p_url).content          # getting source code of the product page
