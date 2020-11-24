@@ -21,7 +21,6 @@ def flipkart_api():
         return f.FlipkartProducts(text)
 
 
-
 @app.route('/api/amazon', methods=['GET'])
 def amazon_api():
     # print('chandrima here')
