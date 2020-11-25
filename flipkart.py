@@ -31,6 +31,7 @@ def FlipkartProducts(text):
         d['title'] = p_soup.find('span', {'class': 'B_NuCI'}).text
         d['price'] = p_soup.find('div', {'class': '_30jeq3 _16Jk6d'}).text
         d['link'] = p_url
+        d['imgUrl'] = None
         l.append(d)
     print(l)
     return jsonify({'flipkart': l})

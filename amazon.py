@@ -27,11 +27,17 @@ def AmazonProducts(query):
     name_list = soup.find_all('span', {'class': 'a-size-medium a-color-base a-text-normal'})
     price_list = soup.find_all('span', {'class': 'a-price-whole'})
     link_list = soup.find_all('a', {'class': 'a-link-normal a-text-normal'})
+    image_list = soup.find_all('img', {'class': 's-image'})
     l = []
+    # print(image_list)
     print(len(name_list))
     print(len(price_list))
     print(len(link_list))
+    print(len(image_list))
     n = []
+    for i in range(10):
+        if 'm.media-amazon' not in image_list[i].get('src'):
+            image_list.remove(image_list[i])
     for i in name_list:  # printing names of items on search page
         n.append(i.text)
     print(n)
@@ -46,6 +52,7 @@ def AmazonProducts(query):
             d['title'] = name_list[i].text
             d['price'] = price_list[i].text
             d['link'] = uri + link_list[i].get('href')  # adding url of amazon to item link
+            d['imgUrl'] = image_list[i].get('src')
             l.append(d)
 
     return jsonify({'amazon': l})  # return list l in JavaScript Object Notation

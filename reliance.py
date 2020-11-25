@@ -30,6 +30,6 @@ def RelianceProducts(text):
         d['title'] = p_soup.find('div', {'class': 'pdp__title'}).text
         d['price'] = p_soup.find('span', {'class': 'pdp__offerPrice'}).text
         d['link'] = p_url
-
+        d['imgUrl'] = u + p_soup.find('img', {'class': 'img-center pdp__mainHeroImgContainer imgCenter'}).get('data-srcset')
         l.append(d)
     return jsonify({'reliance': l})
