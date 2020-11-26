@@ -35,9 +35,10 @@ def AmazonProducts(query):
     print(len(link_list))
     print(len(image_list))
     n = []
-    for i in range(10):
-        if 'm.media-amazon' not in image_list[i].get('src'):
-            image_list.remove(image_list[i])
+    if len(image_list) != 0:
+        for i in range(10):
+            if 'm.media-amazon' not in image_list[i].get('src'):
+                image_list.remove(image_list[i])
     for i in name_list:  # printing names of items on search page
         n.append(i.text)
     print(n)
